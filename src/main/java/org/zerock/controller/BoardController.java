@@ -26,7 +26,13 @@ public class BoardController {
 		log.info("list");
 		model.addAttribute("list", service.getList());
 	}
-
+	
+	//입력 페이지를 보여주는 역할만 함.
+	@GetMapping("/register")
+	public void register() {
+		
+	}
+	
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
 
@@ -37,10 +43,10 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 
-	@GetMapping("/get")
+	@GetMapping({"/get","/modify"}) //URL을 배열로 처리할 수 있음.
 	public void get(@RequestParam("bno") Long bno, Model model) {
 
-		log.info("/get");
+		log.info("/get or modify");
 		model.addAttribute("board", service.get(bno));
 	}
 
@@ -53,10 +59,15 @@ public class BoardController {
 		}
 		return "redirect:/board/list";
 	}
-	
+
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
-		
+		log.info("remove..." + bno);
+		if (service.remove(bno)) {
+			rttr.addFlashAttribute("result", "success");
+		}
+
+		return "redirect:/board/list";
 	}
-	
+
 }

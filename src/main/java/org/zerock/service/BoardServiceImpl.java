@@ -16,7 +16,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor // 모든 파라미터를 이용하는 생성자를 만듬.
 public class BoardServiceImpl implements BoardService {
 
-	@Setter(onMethod_ = @Autowired)
+	@Setter(onMethod_=@Autowired)
 	private BoardMapper mapper;
 
 	@Override
@@ -55,5 +55,8 @@ public class BoardServiceImpl implements BoardService {
 
 		return mapper.getList();
 	}
+
+	
+	
 
 }
